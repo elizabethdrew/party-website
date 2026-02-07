@@ -1,9 +1,9 @@
 * { box-sizing: border-box; }
 
 :root{
-  --bg: #f7f5f2;
+  --bg: #343357;
   --card: #ffffff;
-  --text: #222;
+  --text: #fff;
   --muted: #777;
   --shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
