@@ -35,7 +35,7 @@ body{
   height: 100%;
   width: 100%;
   /* Replace with your image path or URL */
-  background-image: url("YOUR_IMAGE_URL_HERE");
+  background-image: url("image/hero.png");
   background-size: cover;
   background-position: center;
   filter: saturate(1.05) contrast(1.02);
