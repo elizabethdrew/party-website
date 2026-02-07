@@ -14,74 +14,129 @@
 </head>
 <body>
 
-  <div class="layout">
-    <!-- LEFT: IMAGE -->
-    <aside class="left">
-      <div class="image" role="img" aria-label="Party image"></div>
-      <div class="overlay">
-        <p class="kicker">You’re invited</p>
-        <h1>Birthday Party</h1>
-        <p class="meta">Saturday · 12 July · 6pm</p>
-      </div>
-    </aside>
+  <!-- PASSWORD GATE (shown until unlocked) -->
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <p class="gate-kicker">Private invite</p>
+      <h1 class="gate-title">Enter the password</h1>
+      <p class="gate-subtitle">If you don’t have it, ask the host.</p>
 
-    <!-- RIGHT: SCROLLING CONTENT -->
-    <main class="right">
-      <div class="content">
+      <form id="gateForm" class="gate-form" autocomplete="off">
+        <label class="sr-only" for="password">Password</label>
+        <input id="password" type="password" placeholder="Password" required />
+        <button type="submit">Enter</button>
+        <p id="gateError" class="gate-error" aria-live="polite"></p>
+      </form>
 
-        <section>
-          <h2>📍 Location</h2>
-          <p>
-            The address will be shared after you RSVP.<br>
-            <span class="muted">Central London</span>
-          </p>
-        </section>
-
-        <section>
-          <h2>👗 Dress Code</h2>
-          <p>Cocktail / festive / whatever makes you feel excellent.</p>
-        </section>
-
-        <section>
-          <h2>🏨 Accommodation</h2>
-          <p>
-            If you’re staying over, there are plenty of nearby hotels.
-            Details will be sent after RSVP.
-          </p>
-        </section>
-
-        <section>
-          <h2>🕰 Schedule</h2>
-          <ul>
-            <li>6:00 pm — Arrival & drinks</li>
-            <li>7:30 pm — Food</li>
-            <li>Late — Dancing, chaos, vibes</li>
-          </ul>
-        </section>
-
-        <section class="rsvp">
-          <h2>💌 RSVP</h2>
-          <p>Please let us know if you can make it, and any dietary requirements.</p>
-          <a class="button" href="YOUR_FORM_LINK_HERE" target="_blank" rel="noreferrer">
-            RSVP Here
-          </a>
-          <p class="fine muted">RSVP by: 30 June</p>
-        </section>
-
-        <section>
-          <h2>❓ Notes</h2>
-          <p class="muted">
-            Questions? Reply to the invite message or text us.
-          </p>
-        </section>
-
-        <footer class="footer muted">
-          Made with ❤️
-        </footer>
-
-      </div>
-    </main>
+      <p class="gate-fine">Tip: it’s case-sensitive.</p>
+    </div>
   </div>
+
+  <!-- YOUR INVITE SITE (hidden until unlocked) -->
+  <div id="inviteContent" style="display:none;">
+    <div class="layout">
+      <!-- LEFT: IMAGE -->
+      <aside class="left">
+        <div class="image" role="img" aria-label="Party image"></div>
+        <div class="overlay">
+          <p class="kicker">You’re invited</p>
+          <h1>Birthday Party</h1>
+          <p class="meta">Saturday · 12 July · 6pm</p>
+        </div>
+      </aside>
+
+      <!-- RIGHT: SCROLLING CONTENT -->
+      <main class="right">
+        <div class="content">
+
+          <section>
+            <h2>📍 Location</h2>
+            <p>
+              The address will be shared after you RSVP.<br>
+              <span class="muted">Central London</span>
+            </p>
+          </section>
+
+          <section>
+            <h2>👗 Dress Code</h2>
+            <p>Cocktail / festive / whatever makes you feel excellent.</p>
+          </section>
+
+          <section>
+            <h2>🏨 Accommodation</h2>
+            <p>
+              If you’re staying over, there are plenty of nearby hotels.
+              Details will be sent after RSVP.
+            </p>
+          </section>
+
+          <section>
+            <h2>🕰 Schedule</h2>
+            <ul>
+              <li>6:00 pm — Arrival & drinks</li>
+              <li>7:30 pm — Food</li>
+              <li>Late — Dancing, chaos, vibes</li>
+            </ul>
+          </section>
+
+          <section class="rsvp">
+            <h2>💌 RSVP</h2>
+            <p>Please let us know if you can make it, and any dietary requirements.</p>
+            <a class="button" href="YOUR_FORM_LINK_HERE" target="_blank" rel="noreferrer">
+              RSVP Here
+            </a>
+            <p class="fine muted">RSVP by: 30 June</p>
+          </section>
+
+          <footer class="footer muted">
+            Made with ❤️
+          </footer>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // ---- CONFIG ----
+    // Change this to your chosen password
+    const PARTY_PASSWORD = "YOUR_PASSWORD_HERE";
+
+    // Stores unlocked state for this browser tab/session
+    const KEY = "partyInviteUnlocked";
+
+    const gate = document.getElementById("gate");
+    const invite = document.getElementById("inviteContent");
+    const form = document.getElementById("gateForm");
+    const input = document.getElementById("password");
+    const error = document.getElementById("gateError");
+
+    function unlock() {
+      sessionStorage.setItem(KEY, "true");
+      gate.style.display = "none";
+      invite.style.display = "block";
+    }
+
+    // If already unlocked this session, skip gate
+    if (sessionStorage.getItem(KEY) === "true") {
+      unlock();
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      error.textContent = "";
+
+      const entered = input.value || "";
+      if (entered === PARTY_PASSWORD) {
+        unlock();
+      } else {
+        error.textContent = "Nope — try again.";
+        input.value = "";
+        input.focus();
+      }
+    });
+  </script>
 
 </body>
 </html>
+
