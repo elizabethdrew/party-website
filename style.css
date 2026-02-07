@@ -97,8 +97,6 @@ body{
   max-width: 720px;
   margin: 3rem 2rem;
   padding: 2.5rem 2.5rem 3rem;
-
-  background: rgba(0,0,0,0.60);
   backdrop-filter: blur(6px);
   border-radius: 20px;
 }
