@@ -16,7 +16,7 @@ body{
 
   background-image: url("image/background3.png");
   background-size: cover;
-  background-position: center;
+  background-position: top;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
