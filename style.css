@@ -11,11 +11,16 @@
 body{
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  background-image: url("image/background.png");
-  color: var(--text);
+  color: #fff;
   line-height: 1.6;
+
+  background-image: url("image/background_hero.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
+
 
 /* ===== Layout ===== */
 .layout{
@@ -82,31 +87,41 @@ body{
 /* Right column (scroll content) */
 .right{
   min-height: 100vh;
-  overflow: auto;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .content{
+  width: 100%;
   max-width: 720px;
-  padding: 2.5rem 2rem 3rem;
+  margin: 3rem 2rem;
+  padding: 2.5rem 2.5rem 3rem;
+
+  background: rgba(0,0,0,0.60);
+  backdrop-filter: blur(6px);
+  border-radius: 20px;
 }
 
 /* Typography */
 h2{
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
-  margin: 0 0 0.75rem;
+  margin-bottom: 0.75rem;
+  color: #fff;
 }
 
-section{
-  margin-bottom: 2.2rem;
+.muted{
+  color: rgba(255,255,255,0.75);
 }
 
 ul{
   padding-left: 1.2rem;
-  margin: 0.25rem 0 0;
 }
 
-li{ margin-bottom: 0.4rem; }
+li{
+  margin-bottom: 0.4rem;
+}
 
 .muted{
   color: var(--muted);
@@ -156,26 +171,15 @@ li{ margin-bottom: 0.4rem; }
   }
 
   .left{
-    position: relative;
-    height: 55vh;
-  }
-
-  .overlay{
-    padding: 1.75rem;
-  }
-
-  .overlay h1{
-    font-size: 2.2rem;
-  }
-
-  .right{
-    overflow: visible;
+    display: none;
   }
 
   .content{
-    padding: 2rem 1.25rem 3rem;
+    margin: 1.5rem 1rem 3rem;
+    padding: 2rem 1.5rem;
   }
 }
+
 
 
 /* ===== Password Gate ===== */
