@@ -1,8 +1,8 @@
 * { box-sizing: border-box; }
 
 :root{
-  --bg: #343357;
-  --card: #ffffff;
+  --bg: #0e0e0e;
+  --card: #bb9357;
   --text: #fff;
   --muted: #777;
   --shadow: 0 10px 30px rgba(0,0,0,0.06);
