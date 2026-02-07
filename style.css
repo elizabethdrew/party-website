@@ -34,7 +34,6 @@ body{
 .image{
   height: 100%;
   width: 100%;
-  /* Replace with your image path or URL */
   background-image: url("image/invite.jpg");
   background-size: cover;
   background-position: center;
