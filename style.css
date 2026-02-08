@@ -122,7 +122,7 @@ body{
 /* 4 — Date (bottom) */
 .banner-bottom{
   top: 100%;
-  left: 100%;
+  left: 90%;
   width: 150%;
   transform: translateY(-50%);
   animation: bannerFloatD 11.5s ease-in-out infinite;
