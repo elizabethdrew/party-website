@@ -165,7 +165,7 @@
   // Face elements (query once)
   const moonEl = document.querySelector(".face-moon");
   const sunEl  = document.querySelector(".face-sun");
-  const facePx = 2800; // pixels to fully transition moon -> sun
+  const facePx = 2800; // pixels for moon -> sun (then sun -> moon over next 2800)
 
   // Set backgrounds once
   layers.forEach(l => {
@@ -188,8 +188,11 @@
     layers[base].el.style.opacity = String(1 - t);
     layers[next].el.style.opacity = String(t);
 
-    // Face crossfade (clamped 0..1)
-    const faceT = Math.min(1, Math.max(0, scrollY / facePx));
+    // Face crossfade (LOOPING ping-pong: moon -> sun -> moon -> sun ...)
+    // 0..2800px: moon->sun, 2800..5600px: sun->moon, then repeats
+    const phase = (scrollY % (facePx * 2)) / facePx; // 0..2
+    const faceT = phase <= 1 ? phase : (2 - phase); // 0..1..0
+
     if (moonEl && sunEl) {
       moonEl.style.opacity = String(1 - faceT);
       sunEl.style.opacity  = String(faceT);
