@@ -179,7 +179,10 @@
     const n = layers.length;
     const base = ((Math.floor(scenePos) % n) + n) % n; // safe modulo
     const next = (base + 1) % n;
-    const t = scenePos - Math.floor(scenePos); // 0..1
+    const rawT = scenePos - Math.floor(scenePos); // 0..1 within a scene
+    const fadePortion = 0.2; // 20% of each scene used for fading (try 0.15 or 0.1)
+    const t = Math.min(1, rawT / fadePortion);
+
 
     // Reset all
     layers.forEach(l => l.el.style.opacity = "0");
