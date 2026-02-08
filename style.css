@@ -276,7 +276,6 @@ li{
     height: 42vh;
     min-height: 260px;
     max-height: 420px;
-    overflow: hidden;
   }
 
   /* Center + resize the whole art group */
