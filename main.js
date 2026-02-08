@@ -69,3 +69,25 @@
   update();
 })();
 
+(() => {
+  // Respect reduced motion
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+
+  const els = Array.from(document.querySelectorAll(".reveal"));
+  if (!els.length) return;
+
+  // Start hidden
+  els.forEach(el => el.classList.add("reveal--hidden"));
+
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        e.target.classList.add("reveal--shown");
+        io.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.12 });
+
+  els.forEach(el => io.observe(el));
+})();
