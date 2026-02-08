@@ -111,6 +111,16 @@ img.fairy.right-top {
     animation: faceWobble 4.8s ease-in-out infinite;
 }
 
+img.fairy.left-top {
+    width: 200px;
+    margin-top: 100px;
+    margin-bottom: -150px;
+    right: 10%;
+    z-index: 3;
+    position: relative;
+    animation: faceWobble 4.8s ease-in-out infinite;
+}
+
 /* 1 — Celestial */
 .banner-top{
   top: 32%;
