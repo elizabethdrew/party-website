@@ -141,6 +141,63 @@
       }
     });
   </script>
+  <script>
+  const images = [
+    "images/background_night.png",
+    "images/background_dawn.png",
+    "images/background_day.png",
+    "images/background_sunset.png",
+  ];
+
+  // How many pixels of scroll per "scene"
+  // (increase for slower changes, decrease for faster)
+  const pxPerScene = 900;
+
+  const bgA = document.getElementById("bgA");
+  const bgB = document.getElementById("bgB");
+
+  // Keep track of what each layer is currently showing
+  let aIndex = 0;
+  let bIndex = 1;
+
+  bgA.style.backgroundImage = `url("${images[aIndex]}")`;
+  bgB.style.backgroundImage = `url("${images[bIndex]}")`;
+  bgA.style.opacity = "1";
+  bgB.style.opacity = "0";
+
+  function update() {
+    // Total scrollable height (avoid divide-by-zero on short pages)
+    const scrollY = window.scrollY || 0;
+
+    // "Scene position" increases as you scroll, loops forever
+    const scenePos = scrollY / pxPerScene;
+
+    const n = images.length;
+    const base = Math.floor(scenePos) % n;                 // current image index
+    const next = (base + 1) % n;                           // next image index
+    const t = scenePos - Math.floor(scenePos);             // 0..1 fade amount
+
+    // Ensure layers have correct images loaded
+    if (aIndex !== base) {
+      aIndex = base;
+      bgA.style.backgroundImage = `url("${images[aIndex]}")`;
+    }
+    if (bIndex !== next) {
+      bIndex = next;
+      bgB.style.backgroundImage = `url("${images[bIndex]}")`;
+    }
+
+    // Crossfade: A -> B
+    bgA.style.opacity = String(1 - t);
+    bgB.style.opacity = String(t);
+  }
+
+  // Update on scroll + on load + on resize
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+</script>
+
 
 </body>
 </html>
