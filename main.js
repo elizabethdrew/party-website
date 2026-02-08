@@ -6,11 +6,7 @@
     { el: document.getElementById("bgD"), url: "images/background_sunset.png" },
   ];
 
-  let pxPerScene = Math.max(600, window.innerHeight * 1.25);
-
-  window.addEventListener("resize", () => {
-    pxPerScene = Math.max(600, window.innerHeight * 1.25);
-  });
+  let pxPerScene = 1400px;
 
 
   // Fade length within each scene (0..1). Smaller = shorter fade.
