@@ -209,6 +209,18 @@ body{
   height: 2800px; /* adjust: more = longer scroll */
 }
 
+/* Reveal-on-scroll animation */
+.reveal--hidden{
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.reveal--shown{
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease, transform 700ms ease;
+}
+
 /* Typography */
 h2{
   font-family: 'Playfair Display', serif;
@@ -416,7 +428,15 @@ li{
     transform: none !important;
     opacity: 1 !important;
   }
+    .reveal--hidden{
+    opacity: 1;
+    transform: none;
+  }
+  .reveal--shown{
+    transition: none;
+  }
 }
+
 
 /* Fixed background layers behind everything */
 .bg-layer{
