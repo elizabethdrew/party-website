@@ -46,7 +46,7 @@
     const phase = (scrollY % (facePx * 2)) / facePx; // 0..2
     const faceT = phase <= 1 ? phase : (2 - phase); // 0..1..0
     if (moonEl && sunEl) {
-      moonEl.style.opacity = String(1 - faceT);
+      moonEl.style.opacity = "1";
       sunEl.style.opacity  = String(faceT);
     }
 
