@@ -188,7 +188,7 @@ body{
   justify-content: center;
 }
 
-.section.reveal{
+.reveal{
   backdrop-filter: blur(6px);
   padding: 20px;
   margin-bottom: 50px;
