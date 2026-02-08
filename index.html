@@ -151,55 +151,84 @@
     "images/background_sunset.png",
   ];
 
-  // How many pixels of scroll per "scene"
-  // (increase for slower changes, decrease for faster)
+  // scroll pixels per scene (bigger = slower change)
   const pxPerScene = 900;
 
-  const bgA = document.getElementById("bgA");
-  const bgB = document.getElementById("bgB");
+  const layerA = document.getElementById("bgA");
+  const layerB = document.getElementById("bgB");
 
-  // Keep track of what each layer is currently showing
-  let aIndex = 0;
-  let bIndex = 1;
+  // Preload images to prevent flashes
+  const cache = new Map();
+  function preload(url) {
+    if (cache.has(url)) return cache.get(url);
+    const img = new Image();
+    const p = new Promise((resolve, reject) => {
+      img.onload = () => resolve(url);
+      img.onerror = reject;
+    });
+    img.src = url;
+    cache.set(url, p);
+    return p;
+  }
 
-  bgA.style.backgroundImage = `url("${images[aIndex]}")`;
-  bgB.style.backgroundImage = `url("${images[bIndex]}")`;
-  bgA.style.opacity = "1";
-  bgB.style.opacity = "0";
+  // Preload all upfront (small set = fine)
+  Promise.all(images.map(preload)).catch(() => { /* ignore */ });
+
+  // State
+  let currentIndex = 0;
+  let lastSegment = 0;
+
+  // Initialize layers: A visible, B hidden
+  layerA.style.backgroundImage = `url("${images[currentIndex]}")`;
+  layerA.style.opacity = "1";
+  layerB.style.opacity = "0";
+
+  // Ensure the next image is ready on the hidden layer
+  async function setHiddenLayerTo(index) {
+    const url = images[index];
+    try { await preload(url); } catch (e) {}
+    layerB.style.backgroundImage = `url("${url}")`;
+  }
+
+  setHiddenLayerTo((currentIndex + 1) % images.length);
 
   function update() {
-    // Total scrollable height (avoid divide-by-zero on short pages)
     const scrollY = window.scrollY || 0;
-
-    // "Scene position" increases as you scroll, loops forever
     const scenePos = scrollY / pxPerScene;
 
     const n = images.length;
-    const base = Math.floor(scenePos) % n;                 // current image index
-    const next = (base + 1) % n;                           // next image index
-    const t = scenePos - Math.floor(scenePos);             // 0..1 fade amount
+    const seg = ((Math.floor(scenePos) % n) + n) % n; // safe mod
+    const t = scenePos - Math.floor(scenePos);        // 0..1
 
-    // Ensure layers have correct images loaded
-    if (aIndex !== base) {
-      aIndex = base;
-      bgA.style.backgroundImage = `url("${images[aIndex]}")`;
-    }
-    if (bIndex !== next) {
-      bIndex = next;
-      bgB.style.backgroundImage = `url("${images[bIndex]}")`;
+    // If we entered a new segment, "commit" the fade:
+    // make the hidden layer become the visible one without changing the visible image URL
+    if (seg !== lastSegment) {
+      currentIndex = seg;
+      lastSegment = seg;
+
+      // Swap layer roles by swapping their ids in variables (no DOM changes)
+      // We'll just swap the element references:
+      const tmp = layerA;
+      // But layerA/layerB are const, so we swap via opacity + backgrounds instead:
+      // 1) Ensure A shows the current image (it already should, because it was B last frame)
+      layerA.style.backgroundImage = `url("${images[currentIndex]}")`;
+      layerA.style.opacity = "1";
+      layerB.style.opacity = "0";
+
+      // 2) Prepare next image on hidden layer
+      setHiddenLayerTo((currentIndex + 1) % n);
     }
 
-    // Crossfade: A -> B
-    bgA.style.opacity = String(1 - t);
-    bgB.style.opacity = String(t);
+    // Crossfade within the current segment
+    // Visible current image on A, fading to next on B
+    layerA.style.opacity = String(1 - t);
+    layerB.style.opacity = String(t);
   }
 
-  // Update on scroll + on load + on resize
   window.addEventListener("scroll", update, { passive: true });
   window.addEventListener("resize", update);
   update();
 </script>
-
 
 </body>
 </html>
