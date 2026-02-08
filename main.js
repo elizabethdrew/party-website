@@ -6,7 +6,8 @@
     { el: document.getElementById("bgD"), url: "images/background_sunset.png" },
   ];
 
-  const pxPerScene = 1400;
+  const sceneLens = [1400, 700, 700, 700]; // [night, dawn, day, sunset]
+  const totalLen = sceneLens.reduce((a, b) => a + b, 0);
 
   // Fade length within each scene (0..1). Smaller = shorter fade.
   const fadePortion = 0.2;
@@ -24,15 +25,31 @@
   });
 
   function update() {
-    const scrollY = window.scrollY || 0;
-    const scenePos = scrollY / pxPerScene;
-
     const n = layers.length;
-    const base = ((Math.floor(scenePos) % n) + n) % n;
-    const next = (base + 1) % n;
 
-    const rawT = scenePos - Math.floor(scenePos); // 0..1 within a scene
-    const t = Math.min(1, rawT / fadePortion);    // shortened fade, then hold
+    // Loop the timeline
+    const y = ((scrollY % totalLen) + totalLen) % totalLen;
+    
+    // Find which scene we're in
+    let base = 0;
+    let acc = 0;
+    for (let i = 0; i < n; i++) {
+      const len = sceneLens[i];
+      if (y < acc + len) {
+        base = i;
+        break;
+      }
+      acc += len;
+    }
+    
+    const next = (base + 1) % n;
+    
+    // Progress within the current scene (0..1)
+    const rawT = (y - acc) / sceneLens[base];
+    
+    // Shorten fade within the scene, then “hold”
+    const t = Math.min(1, rawT / fadePortion);
+
 
     // Reset all
     layers.forEach(l => { if (l.el) l.el.style.opacity = "0"; });
