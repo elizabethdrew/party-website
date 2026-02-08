@@ -296,6 +296,8 @@ li{
   .banner-middle{ top: 48%; }
   .banner-lower{ top: 64%; }
   .banner-bottom{ top: 80%; }
+
+  .layout{ grid-template-columns: 1fr; }
 }
 
 /* ===== Password Gate ===== */
