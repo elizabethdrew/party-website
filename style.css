@@ -99,26 +99,60 @@ body{
 .banner-top{
   top: 32%;
   transform: translateY(-50%);
+  animation: bannerFloatA 8.5s ease-in-out infinite;
 }
 
 /* 2 — Midsummer */
 .banner-middle{
   top: 50%;
   transform: translateY(-50%);
+  animation: bannerFloatB 10.5s ease-in-out infinite;
+  animation-delay: -2s;
 }
 
 /* 3 — Dream */
 .banner-lower{
   top: 66%;
   transform: translateY(-50%);
+  animation: bannerFloatC 9.5s ease-in-out infinite;
+  animation-delay: -4s;
 }
 
 /* 4 — Date (bottom) */
 .banner-bottom{
   top: 82%;
   transform: translateY(-50%);
+  animation: bannerFloatD 11.5s ease-in-out infinite;
+  animation-delay: -6s;
 }
 
+/* Keyframes include translateY(-50%) because your banners rely on it */
+@keyframes bannerFloatA{
+  0%,100% { transform: translateY(-50%) rotate(-0.6deg) translateX(0px); }
+  50%     { transform: translateY(-50%) rotate( 0.6deg) translateX(3px); }
+}
+
+@keyframes bannerFloatB{
+  0%,100% { transform: translateY(-50%) rotate( 0.4deg) translateX(0px); }
+  50%     { transform: translateY(-50%) rotate(-0.4deg) translateX(-3px); }
+}
+
+@keyframes bannerFloatC{
+  0%,100% { transform: translateY(-50%) rotate(-0.5deg) translateX(0px); }
+  50%     { transform: translateY(-50%) rotate( 0.5deg) translateX(2px); }
+}
+
+@keyframes bannerFloatD{
+  0%,100% { transform: translateY(-50%) rotate( 0.3deg) translateX(0px); }
+  50%     { transform: translateY(-50%) rotate(-0.3deg) translateX(-2px); }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce){
+  .banner-top, .banner-middle, .banner-lower, .banner-bottom{
+    animation: none !important;
+  }
+}
 
 
 .face{
