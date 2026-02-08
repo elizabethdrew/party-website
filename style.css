@@ -80,6 +80,10 @@ body{
   will-change: transform;
 }
 
+.banner-top{ transform: translateY(-52%); }
+.banner-middle{ transform: translateY(-50%); }
+.banner-bottom{ transform: translateY(-48%); }
+
 /* Top */
 .banner-top{
   top: 36%;
