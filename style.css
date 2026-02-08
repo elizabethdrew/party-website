@@ -8,9 +8,6 @@
   --shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
 
-#bgA { opacity: 1; }
-#bgB, #bgC, #bgD { opacity: 0; }
-
 body{
   margin: 0;
   font-family: 'Inter', sans-serif;
@@ -453,5 +450,7 @@ li{
   transition: none;
   z-index: -3;
 }
+#bgA { opacity: 1; }
+#bgB, #bgC, #bgD { opacity: 0; }
 
 
