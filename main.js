@@ -31,9 +31,8 @@
     const next = (base + 1) % n;
     
     const rawT = scenePos - Math.floor(scenePos);
-    const t = Math.min(1, rawT / fadePortion);
-
-
+    const fadeStart = 1 - fadePortion;              
+    const t = Math.min(1, Math.max(0, (rawT - fadeStart) / fadePortion));
 
     // Reset all
     layers.forEach(l => { if (l.el) l.el.style.opacity = "0"; });
