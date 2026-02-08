@@ -41,6 +41,12 @@
     <div class="layout">
       <!-- LEFT: IMAGE -->
       <aside class="left">
+        <div class="left-face">
+          <div class="face-swap">
+            <img class="face face-moon" src="images/moon_face.png" alt="Moon face" />
+            <img class="face face-sun"  src="images/sun_face.png"  alt="Sun face" />
+          </div>
+        </div>
       </aside>
 
       <!-- RIGHT: SCROLLING CONTENT -->
@@ -156,6 +162,11 @@
 
   const pxPerScene = 1400;
 
+  // Face elements (query once)
+  const moonEl = document.querySelector(".face-moon");
+  const sunEl  = document.querySelector(".face-sun");
+  const facePx = 2800; // pixels to fully transition moon -> sun
+
   // Set backgrounds once
   layers.forEach(l => {
     l.el.style.backgroundImage = `url("${l.url}")`;
@@ -166,9 +177,9 @@
     const scenePos = scrollY / pxPerScene;
 
     const n = layers.length;
-    const base = Math.floor(scenePos) % n;
+    const base = ((Math.floor(scenePos) % n) + n) % n; // safe modulo
     const next = (base + 1) % n;
-    const t = scenePos - Math.floor(scenePos);
+    const t = scenePos - Math.floor(scenePos); // 0..1
 
     // Reset all
     layers.forEach(l => l.el.style.opacity = "0");
@@ -176,12 +187,20 @@
     // Crossfade only two
     layers[base].el.style.opacity = String(1 - t);
     layers[next].el.style.opacity = String(t);
+
+    // Face crossfade (clamped 0..1)
+    const faceT = Math.min(1, Math.max(0, scrollY / facePx));
+    if (moonEl && sunEl) {
+      moonEl.style.opacity = String(1 - faceT);
+      sunEl.style.opacity  = String(faceT);
+    }
   }
 
   window.addEventListener("scroll", update, { passive: true });
   window.addEventListener("resize", update);
   update();
 </script>
+
 
 </body>
 </html>
