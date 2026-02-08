@@ -123,6 +123,7 @@ body{
 .banner-bottom{
   top: 100%;
   left: 120%;
+  width: 100%;
   transform: translateY(-50%);
   animation: bannerFloatD 11.5s ease-in-out infinite;
   animation-delay: -6s;
@@ -294,7 +295,7 @@ li{
   .banner-top{ top: 30%; }
   .banner-middle{ top: 48%; }
   .banner-lower{ top: 64%; }
-  .banner-bottom{ top: 80%; }
+  .banner-bottom{ top: 90%; left: 40%; }
 
   .layout{ grid-template-columns: 1fr; }
 }
