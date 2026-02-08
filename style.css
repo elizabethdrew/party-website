@@ -13,7 +13,6 @@ body{
   font-family: 'Inter', sans-serif;
   color: #fff;
   line-height: 1.6;
-  background: #000;
 }
 
 
@@ -82,7 +81,7 @@ body{
 /* Right column (scroll content) */
 .right{
   min-height: 100vh;
-  overflow-y: auto;
+  overflow: visible;
   display: flex;
   justify-content: center;
 }
@@ -94,6 +93,11 @@ body{
   padding: 2.5rem 2.5rem 3rem;
   backdrop-filter: blur(6px);
   border-radius: 20px;
+}
+
+/* Adds extra scroll space without adding visible content */
+.scroll-runway{
+  height: 4800px; /* adjust: more = longer scroll */
 }
 
 /* Typography */
