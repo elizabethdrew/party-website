@@ -91,20 +91,18 @@ body{
   will-change: transform;
 }
 
-.banner-top{ transform: translateY(-52%); }
-.banner-middle{ transform: translateY(-50%); }
-.banner-bottom{ transform: translateY(-48%); }
-
 /* 1 — Celestial */
 .banner-top{
   top: 32%;
   transform: translateY(-50%);
   animation: bannerFloatA 8.5s ease-in-out infinite;
+  width: 120%;
 }
 
 /* 2 — Midsummer */
 .banner-middle{
   top: 50%;
+  left: 80%;
   transform: translateY(-50%);
   animation: bannerFloatB 10.5s ease-in-out infinite;
   animation-delay: -2s;
@@ -112,7 +110,8 @@ body{
 
 /* 3 — Dream */
 .banner-lower{
-  top: 66%;
+  top: 76%;
+  width: 130%;
   transform: translateY(-50%);
   animation: bannerFloatC 9.5s ease-in-out infinite;
   animation-delay: -4s;
@@ -120,7 +119,8 @@ body{
 
 /* 4 — Date (bottom) */
 .banner-bottom{
-  top: 82%;
+  top: 100%;
+  left: 100%;
   transform: translateY(-50%);
   animation: bannerFloatD 11.5s ease-in-out infinite;
   animation-delay: -6s;
