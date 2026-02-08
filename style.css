@@ -13,12 +13,7 @@ body{
   font-family: 'Inter', sans-serif;
   color: #fff;
   line-height: 1.6;
-
-  background-image: url("image/background6.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: #000;
 }
 
 
