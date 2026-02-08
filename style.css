@@ -201,7 +201,6 @@ body{
   width: 100%;
   max-width: 720px;
   margin: 3rem 2rem;
-  padding: 2.5rem 2.5rem 3rem;
   border-radius: 20px;
 }
 
@@ -276,7 +275,7 @@ li{
   .left{
     position: relative;
     height: 42vh;
-    min-height: 260px;
+    min-height: 300px;
     max-height: 420px;
   }
 
@@ -302,7 +301,7 @@ li{
   .banner-top{ top: 30%; }
   .banner-middle{ top: 48%; }
   .banner-lower{ top: 64%; }
-  .banner-bottom{ top: 90%; left: 40%; }
+  .banner-bottom{ top: 90%; left: 40%; width:150%; }
 
   .layout{ grid-template-columns: 1fr; }
 }
