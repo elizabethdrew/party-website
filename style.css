@@ -188,11 +188,13 @@ body{
   justify-content: center;
 }
 
-.reveal{
-  backdrop-filter: blur(10px);
-  padding: 20px;
-  margin-bottom: 50px;
-  min-height: 600px;
+.reveal {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    margin-bottom: 50px;
+    min-height: 600px;
+    border-radius: 20px;
 }
 
 .content{
