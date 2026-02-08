@@ -92,23 +92,23 @@ body{
 }
 
 img.fairy.left-bottom {
-  width: 200px;
-  left: -50px;
-  z-index: 3;
-  position: relative;
-  transform: translateY(-50%);
-  animation: faceWobble 4.8s ease-in-out infinite;
+    width: 200px;
+    margin-top: 10px;
+    margin-bottom: -60px;
+    z-index: 3;
+    right: 10%;
+    position: relative;
+    animation: faceWobble 4.8s ease-in-out infinite;
 }
 
 img.fairy.right-top {
-  width: 200px;
-  margin-top: -80px;
-  margin-bottom: -60px;
-  right: -50px;
-  z-index: 3;
-  position: relative;
-  transform: translateY(-50%);
-  animation: faceWobble 4.8s ease-in-out infinite;
+    width: 200px;
+    margin-top: 100px;
+    margin-bottom: -150px;
+    left: 70%;
+    z-index: 3;
+    position: relative;
+    animation: faceWobble 4.8s ease-in-out infinite;
 }
 
 /* 1 — Celestial */
