@@ -91,6 +91,12 @@ body{
   will-change: transform;
 }
 
+img.fairy {
+  width: 200px;
+  transform: translateY(-50%);
+  animation: faceWobble 4.8s ease-in-out infinite;
+}
+
 /* 1 — Celestial */
 .banner-top{
   top: 32%;
@@ -156,7 +162,6 @@ body{
     animation: none !important;
   }
 }
-
 
 .face{
   position: absolute;
