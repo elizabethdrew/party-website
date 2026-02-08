@@ -95,23 +95,30 @@ body{
 .banner-middle{ transform: translateY(-50%); }
 .banner-bottom{ transform: translateY(-48%); }
 
-/* Top */
+/* 1 — Celestial */
 .banner-top{
-  top: 36%;
+  top: 32%;
   transform: translateY(-50%);
 }
 
-/* Middle */
+/* 2 — Midsummer */
 .banner-middle{
-  top: 56%;
+  top: 50%;
   transform: translateY(-50%);
 }
 
-/* Bottom */
-.banner-bottom{
-  top: 74%;
+/* 3 — Dream */
+.banner-lower{
+  top: 66%;
   transform: translateY(-50%);
 }
+
+/* 4 — Date (bottom) */
+.banner-bottom{
+  top: 82%;
+  transform: translateY(-50%);
+}
+
 
 
 .face{
