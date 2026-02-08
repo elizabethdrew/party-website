@@ -21,6 +21,22 @@ body{
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  position: relative;
+  z-index: 1;
+}
+
+/* Desktop-only overlay above backgrounds, below content */
+.page-overlay{
+  display: none;           /* off by default (mobile) */
+  position: fixed;
+  inset: 0;
+  background-image: url("images/background_night_top.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.35;           /* tweak 0.15–0.6 */
+  z-index: -1;             /* above bg layers (-3), below layout (1) */
+  pointer-events: none;
 }
 
 /* Left column layout */
@@ -408,6 +424,9 @@ li{
   .parallax{
     will-change: transform, opacity;
     transform: translate3d(0, 0, 0);
+  }
+  .page-overlay{
+    display: block;
   }
 }
 
