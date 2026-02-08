@@ -448,7 +448,7 @@ li{
   background-repeat: no-repeat;
   will-change: opacity;
   transition: none;
-  z-index: -3;
+  z-index: -1;
 }
 #bgA { opacity: 1; }
 #bgB, #bgC, #bgD { opacity: 0; }
