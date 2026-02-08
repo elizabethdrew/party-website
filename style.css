@@ -275,7 +275,6 @@ li{
   /* Center + resize the whole art group */
   .left-art{
     position: absolute;
-    left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     width: min(320px, 86vw);  /* key line: responsive sizing */
@@ -284,7 +283,7 @@ li{
 
   /* Make sure the face+banner stack scales with the container */
   .left-face{
-    width: 62%;               /* tweak 55–70% */
+    width: 100%;               /* tweak 55–70% */
   }
 
   .banner{
