@@ -91,11 +91,22 @@ body{
   will-change: transform;
 }
 
-img.fairy {
+img.fairy.left-bottom {
   width: 200px;
   margin-top: -80px;
   margin-bottom: -60px;
   left: -50px;
+  z-index: 3;
+  position: relative;
+  transform: translateY(-50%);
+  animation: faceWobble 4.8s ease-in-out infinite;
+}
+
+img.fairy.right-top {
+  width: 200px;
+  margin-top: -80px;
+  margin-bottom: -60px;
+  right: -50px;
   z-index: 3;
   position: relative;
   transform: translateY(-50%);
