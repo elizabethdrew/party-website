@@ -264,17 +264,35 @@ li{
 
 /* ===== Mobile: image first, then content ===== */
 @media (max-width: 900px){
-  .layout{ grid-template-columns: 1fr; }
-
-  .left{
-    position: relative;
-    height: auto;
-    padding: 1.5rem 1rem 0;
+  .layout{
+    grid-template-columns: 1fr;
   }
 
-  .left-face{
-    width: min(220px, 70vw);
-    margin: 0 auto;
+  /* Left column becomes a top panel that scrolls away */
+  .left{
+    position: relative;     /* NOT sticky */
+    top: auto;
+    height: 42vh;           /* fixed-ish size; tweak 35–55vh */
+    min-height: 260px;      /* ensures it’s not too small */
+    max-height: 420px;      /* ensures it’s not too tall */
+    overflow: hidden;
+  }
+
+  /* Put the art nicely inside the panel */
+  .left-art{
+    position: absolute;
+    inset: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(380px, 92%);
+    aspect-ratio: 1 / 1;
+  }
+
+  /* Make the right column scroll normally as part of the page */
+  .right{
+    overflow: visible;
+    min-height: auto;
   }
 
   .content{
@@ -282,6 +300,7 @@ li{
     padding: 2rem 1.5rem;
   }
 }
+
 
 
 
