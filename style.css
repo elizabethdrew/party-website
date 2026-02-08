@@ -28,15 +28,17 @@ body{
   position: sticky;
   top: 0;
   height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 2rem;
 }
 
 .left-face{
   width: min(260px, 70%);
   aspect-ratio: 1 / 1;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
 }
+
 
 .face-swap{
   position: relative;
