@@ -205,7 +205,7 @@ body{
 
 /* Adds extra scroll space without adding visible content */
 .scroll-runway{
-  height: 5600px; /* adjust: more = longer scroll */
+  height: 2800px; /* adjust: more = longer scroll */
 }
 
 /* Typography */
