@@ -278,3 +278,16 @@ li{
   }
 }
 
+/* Fixed background layers behind everything */
+.bg-layer{
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: opacity;
+  transition: opacity 120ms linear; /* small smoothing */
+  z-index: -3;
+}
+
+
