@@ -160,6 +160,7 @@
   inset: 0;
   pointer-events: none;
   z-index: -1; /* above background, below content */
+  height: 500px;
 }
 
 .particle{
@@ -167,7 +168,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: white;
+  background: goldenrod;
   opacity: 0.6;
   filter: blur(0.5px);
   animation: floatParticle 18s linear infinite,
