@@ -42,6 +42,20 @@
     animation: sway 5s ease-in-out infinite;
 }
 
+.frog_1 {
+    bottom: 0%;
+    left: -15%;
+    animation:
+      tilt 7s ease-in-out infinite,
+      breathe 3s ease-in-out infinite;
+}
+
+.fox_2 {
+    right: -10%;
+    top: -30%;
+    animation: wobble 3s ease-in-out infinite;
+}
+
 /* Animations */
 
 /* Slow Float Up & Down */
