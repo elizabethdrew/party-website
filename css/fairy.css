@@ -24,6 +24,14 @@
       breathe 3s ease-in-out infinite;
 }
 
+.moon_2 {
+    right: 0%;
+    top: -100%;
+    animation:
+      tilt 7s ease-in-out infinite,
+      breathe 3s ease-in-out infinite;
+}
+
 .fairy_1 {
     top: -50%;
     animation:
