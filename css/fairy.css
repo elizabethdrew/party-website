@@ -10,6 +10,14 @@
 }
 
 .star_1 {
-    left: 70%;
-    margin-bottom: -100px;
+    right: 0%;
+}
+
+.cloud_1 {
+    right: 0%;
+    top: -100%;
+}
+
+.fairy_1 {
+    top: -50%;
 }
