@@ -77,7 +77,7 @@
 }
 
 .donkey_1 {
-    right: 0%;
+    right: -10%;
     animation:
       floatY 7s ease-in-out infinite,
       wobble 11s ease-in-out infinite;
