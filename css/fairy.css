@@ -69,15 +69,16 @@
     animation: wobble 3s ease-in-out infinite;
 }
 
-.donkey_1 {
-    bottom: 0%;
-    left: -15%;
+.bird_1 {
+    left: -20%;
+    width: 50%;
+    top: -110%;
     animation:
       tilt 7s ease-in-out infinite,
       breathe 3s ease-in-out infinite;
 }
 
-.rabbit_1 {
+.donkey_1 {
     right: 0%;
     animation:
       floatY 7s ease-in-out infinite,
