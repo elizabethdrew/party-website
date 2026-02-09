@@ -56,6 +56,19 @@
     animation: wobble 3s ease-in-out infinite;
 }
 
+.ladybird_1 {
+    bottom: 0%;
+    left: -10%;
+    width: 40%;
+    animation: bounceSoft 7s ease-in-out infinite;
+}
+
+.fox_1 {
+    right: -5%;
+    top: -30%;
+    animation: wobble 3s ease-in-out infinite;
+}
+
 /* Animations */
 
 /* Slow Float Up & Down */
