@@ -1,0 +1,5 @@
+img.fairy {
+    width: 200px;
+    z-index: 3;
+    position: absolute;  
+}
