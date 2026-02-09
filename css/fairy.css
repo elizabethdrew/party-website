@@ -69,6 +69,33 @@
     animation: wobble 3s ease-in-out infinite;
 }
 
+.donkey_1 {
+    bottom: 0%;
+    left: -15%;
+    animation:
+      tilt 7s ease-in-out infinite,
+      breathe 3s ease-in-out infinite;
+}
+
+.rabbit_1 {
+    right: 0%;
+    animation:
+      floatY 7s ease-in-out infinite,
+      wobble 11s ease-in-out infinite;
+}
+
+.dog_1 {
+    right: -5%;
+    top: -30%;
+    animation: wobble 3s ease-in-out infinite;
+}
+
+.bottle_1 {
+    left: -10%;
+    top: -50%;
+    animation: sway 5s ease-in-out infinite;
+}
+
 /* Animations */
 
 /* Slow Float Up & Down */
