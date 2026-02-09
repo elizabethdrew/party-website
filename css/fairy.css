@@ -11,6 +11,9 @@
 
 .star_1 {
     right: 0%;
+    animation:
+      floatY 7s ease-in-out infinite,
+      wobble 11s ease-in-out infinite;
 }
 
 .cloud_1 {
@@ -21,6 +24,134 @@
 .fairy_1 {
     top: -50%;
 }
+
+/* Animations */
+
+/* Slow Float Up & Down */
+@keyframes floatY {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Side Drift */
+@keyframes driftX {
+  0%,100% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+}
+
+/* Gentle Rotate (Wobble) */
+@keyframes wobble {
+  0%,100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+/* Breathing Scale */
+@keyframes breathe {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Slow Fade Pulse */
+@keyframes fadePulse {
+  0%,100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* Figure-8 Drift */
+@keyframes figure8 {
+  0%   { transform: translate(0,0); }
+  25%  { transform: translate(6px,-4px); }
+  50%  { transform: translate(0,-8px); }
+  75%  { transform: translate(-6px,-4px); }
+  100% { transform: translate(0,0); }
+}
+
+/* Slow Spin */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Hover Tilt */
+@keyframes tilt {
+  0%,100% { transform: rotate(0); }
+  50% { transform: rotate(3deg); }
+}
+
+/* Tiny Bounce */
+@keyframes bounceSoft {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Cloud Stretch */
+@keyframes stretch {
+  0%,100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.03); }
+}
+
+/* Twinkle */
+@keyframes twinkle {
+  0%,100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Blink + Scale */
+@keyframes sparkle {
+  0%,100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Soft Glow */
+@keyframes glow {
+  0%,100% { filter: drop-shadow(0 0 0px #fff); }
+  50% { filter: drop-shadow(0 0 6px #fff); }
+}
+
+/* Flicker (Lantern vibe) */
+@keyframes flicker {
+  0%,100% { opacity: 1; }
+  40% { opacity: 0.85; }
+  60% { opacity: 0.95; }
+}
+
+/* Slow Horizontal Travel */
+@keyframes travelX {
+  from { transform: translateX(-20px); }
+  to { transform: translateX(20px); }
+}
+
+/* Rise Like Smoke */
+@keyframes rise {
+  from { transform: translateY(10px); opacity: 0.6; }
+  to { transform: translateY(-20px); opacity: 1; }
+}
+
+/* Gentle Orbit */
+@keyframes orbit {
+  from { transform: rotate(0) translateX(10px) rotate(0); }
+  to { transform: rotate(360deg) translateX(10px) rotate(-360deg); }
+}
+
+/* Sway (Like Hanging Sign) */
+@keyframes sway {
+  0%,100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+
+/* Parallax Micro-Drift */
+@keyframes microDrift {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Appear → Float → Fade */
+@keyframes appearFloat {
+  0%   { opacity: 0; transform: translateY(10px); }
+  30%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
 
 /* Particles */
 
