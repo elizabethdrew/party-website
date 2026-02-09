@@ -20,13 +20,13 @@
     right: 0%;
     top: -100%;
     animation:
-      travelX 3s ease-in-out infinite,
+      travelX 3s ease-in-out infinite;
 }
 
 .fairy_1 {
     top: -50%;
     animation:
-      tilt 5s ease-in-out infinite,
+      tilt 5s ease-in-out infinite;
 }
 
 /* Animations */
