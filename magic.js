@@ -246,7 +246,7 @@
   // ============================================================
   // 4. FIREFLIES (Canvas)
   // ============================================================
-  if (!reducedMotion) (() => {
+  if (!reducedMotion && window.innerWidth > 900) (() => {
     const canvas = document.getElementById('fireflyCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');

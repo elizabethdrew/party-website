@@ -333,28 +333,34 @@ body {
 @keyframes inviteReveal {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    margin-top: 20px;
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    margin-top: 0;
   }
 }
 
 /* ===== LAYOUT ===== */
 .layout {
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   position: relative;
   z-index: 2;
 }
 
-/* Left column (sticky artwork) */
+/* Left column (fixed artwork) */
 .left {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 50%;
   height: 100vh;
+  overflow: hidden;
+}
+
+/* Right column flows normally, offset to the right */
+.right {
+  margin-left: 50%;
 }
 
 .left-art {
@@ -436,7 +442,7 @@ body {
 
 .banner-top {
   top: 32%;
-  transform: translateY(-50%);
+  transform: translateY(-75%);
   animation: bannerFloatA 8.5s ease-in-out infinite;
   width: 120%;
 }
@@ -453,7 +459,7 @@ body {
 
 .banner-lower {
   top: 77%;
-  width: 150%;
+  width: 130%;
   transform: translateY(-50%);
   animation: bannerFloatC 9.5s ease-in-out infinite;
   animation-delay: -4s;
@@ -461,7 +467,7 @@ body {
 
 .banner-bottom {
   top: 100%;
-  left: 90%;
+  left: 50%;
   width: 150%;
   transform: translateY(-50%);
   animation: bannerFloatD 11.5s ease-in-out infinite;
@@ -486,11 +492,6 @@ body {
 }
 
 /* ===== RIGHT COLUMN ===== */
-.right {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-}
 
 .content {
   width: 100%;
@@ -954,17 +955,18 @@ body {
 
 /* ===== MOBILE ===== */
 @media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
-
   .left {
     position: relative;
+    width: 100%;
     height: auto;
     min-height: unset;
     max-height: unset;
     padding: 2.5rem 1rem 1rem;
     overflow: hidden;
+  }
+
+  .right {
+    margin-left: 0;
   }
 
   /* Switch from absolute positioning to a vertical flex stack */
@@ -999,14 +1001,14 @@ body {
     100% { transform: rotate(-2deg); }
   }
 
-  /* Banners become stacked, centered, static-positioned */
+  /* Banners become stacked, centered, overlapping slightly */
   .banner {
     position: relative;
     left: auto;
     top: auto;
     transform: none;
     display: block;
-    margin: 2px auto 0;
+    margin: -8px auto 0;
   }
 
   .banner img {
@@ -1018,10 +1020,11 @@ body {
   .banner-top {
     top: auto;
     transform: none;
-    margin-top: 0;
+    margin-top: -60px;
     animation: bannerFloatMobileA 8.5s ease-in-out infinite;
     width: min(280px, 70vw);
-  }
+    z-index: 2;
+}
 
   .banner-middle {
     top: auto;
@@ -1030,7 +1033,7 @@ body {
     animation: bannerFloatMobileB 10.5s ease-in-out infinite;
     animation-delay: -2s;
     width: min(280px, 70vw);
-    z-index: 1;
+    z-index: 3;
   }
 
   .banner-lower {
@@ -1039,6 +1042,7 @@ body {
     animation: bannerFloatMobileC 9.5s ease-in-out infinite;
     animation-delay: -4s;
     width: min(320px, 80vw);
+    z-index: 2;
   }
 
   .banner-bottom {
@@ -1048,6 +1052,7 @@ body {
     animation: bannerFloatMobileD 11.5s ease-in-out infinite;
     animation-delay: -6s;
     width: min(320px, 80vw);
+    z-index: 1;
   }
 
   @keyframes bannerFloatMobileA {
