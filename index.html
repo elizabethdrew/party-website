@@ -3,198 +3,313 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>You're Invited</title>
+  <title>You're Invited — A Celestial Midsummer Night's Dream</title>
+  <meta name="description" content="A magical birthday celebration under the stars" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="bgA" class="bg-layer"></div>
-  <div id="bgB" class="bg-layer"></div>
-  <div id="bgC" class="bg-layer"></div>
-  <div id="bgD" class="bg-layer"></div>
-
-  <div class="particles" aria-hidden="true">
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
+  <!-- Layered sky background -->
+  <div class="sky" aria-hidden="true">
+    <div id="bgA" class="bg-layer"></div>
+    <div id="bgB" class="bg-layer"></div>
+    <div id="bgC" class="bg-layer"></div>
+    <div id="bgD" class="bg-layer"></div>
   </div>
 
-  <!-- PASSWORD GATE (shown until unlocked) -->
+  <!-- Canvas layers -->
+  <canvas id="starCanvas" aria-hidden="true"></canvas>
+  <canvas id="fireflyCanvas" aria-hidden="true"></canvas>
+  <div id="cursorTrail" class="cursor-trail" aria-hidden="true"></div>
+
+  <!-- Floating particles -->
+  <div class="particles" aria-hidden="true"></div>
+
+  <!-- PASSWORD GATE -->
   <div id="gate" class="gate">
+    <canvas id="gateStars" class="gate-stars" aria-hidden="true"></canvas>
     <div class="gate-card">
+      <div class="gate-moon" aria-hidden="true">
+        <img src="images/moon_face.png" alt="" class="gate-moon-img" />
+      </div>
       <p class="gate-kicker">Private invite</p>
       <h1 class="gate-title">Enter the password</h1>
-      <p class="gate-subtitle">If you don’t have it, ask the host.</p>
+      <p class="gate-subtitle">If you don't have it, ask the host.</p>
 
       <form id="gateForm" class="gate-form" autocomplete="off">
         <label class="sr-only" for="password">Password</label>
-        <input id="password" type="password" placeholder="Password" required />
-        <button type="submit">Enter</button>
+        <input id="password" type="password" placeholder="Whisper the secret..." required />
+        <button type="submit">
+          <span class="btn-text">Enter</span>
+          <span class="btn-sparkle" aria-hidden="true"></span>
+        </button>
         <p id="gateError" class="gate-error" aria-live="polite"></p>
       </form>
 
-      <p class="gate-fine">Tip: it’s case-sensitive.</p>
+      <p class="gate-fine">Tip: it's case-sensitive.</p>
     </div>
   </div>
 
-  <!-- YOUR INVITE SITE (hidden until unlocked) -->
-  <div id="inviteContent" style="display:none;">
+  <!-- INVITE CONTENT (hidden until unlocked) -->
+  <div id="inviteContent" class="invite-content" style="display:none;">
     <div class="layout">
-      
-      <!-- LEFT: IMAGE -->
-      <aside class="left">
+
+      <!-- LEFT: Sticky artwork -->
+      <aside class="left" aria-hidden="true">
         <div class="left-art">
           <div class="left-face">
             <img class="face-back" src="images/face_back.png" alt="" />
-        
             <div class="face-swap">
               <img class="face face-moon" src="images/moon_face.png" alt="Moon face" />
               <img class="face face-sun"  src="images/sun_face.png"  alt="Sun face" />
             </div>
           </div>
-        
-          <img src="images/celestial_banner.png" alt="" class="banner banner-top" />
-          <img src="images/midsummer_banner.png" alt="" class="banner banner-middle" />
-          <img src="images/dream_banner.png" alt="" class="banner banner-lower" />
-          <img src="images/date_banner.png" alt="" class="banner banner-bottom" />
 
+          <picture class="banner banner-top">
+            <source media="(max-width: 900px)" srcset="images/celestial_banner.png" />
+            <img src="images/celestial_banner.png" alt="" />
+          </picture>
+          <picture class="banner banner-middle">
+            <source media="(max-width: 900px)" srcset="images/midsummer_banner.png" />
+            <img src="images/midsummer_banner.png" alt="" />
+          </picture>
+          <picture class="banner banner-lower">
+            <source media="(max-width: 900px)" srcset="images/dream_banner.png" />
+            <img src="images/dream_banner.png" alt="" />
+          </picture>
+          <picture class="banner banner-bottom">
+            <source media="(max-width: 900px)" srcset="images/date_banner.png" />
+            <img src="images/date_banner.png" alt="" />
+          </picture>
         </div>
       </aside>
 
-      <!-- RIGHT: SCROLLING CONTENT -->
+      <!-- RIGHT: Scrolling content -->
       <main class="right">
         <div class="content">
-          <div class="scene">
-            <img src="images/star_1.png" alt="" class="fairy star_1" />
+
+          <!-- Section: Hero -->
+          <div class="scene scene--hero">
+            <img src="images/star_1.png" alt="" class="creature creature--float star_1" />
           </div>
-          <section class="reveal parallax">
-            <h2>A Celestial Midsummer Night's Dream</h2>
-            <p>
-              As the summer sky begins to glow with stars, you are warmly invited to a night of magic, mischief, and moonlit celebration on the Cornish coast.
-              <br><br>
-              On the evening of <strong>Saturday 22nd August 2026</strong>, we will come together at <strong>Sea Swept Farm</strong>, near Mousehole, where the sea air meets open skies and the horizon stretches into twilight. As dusk falls, the farm will transform into a whimsical midsummer dream — a place of lantern light, music, dancing, and celestial wonder.
-              <br><br>
-              Guests are warmly invited to stay a while: camping will be available on the farm from <strong>Friday through to Monday</strong>, with plenty of time to explore the coves, coast paths, and hidden corners of this beautiful part of Cornwall during the day.
-              <br><br>
-              The evening itself will be playful and enchanted — and you are wholeheartedly encouraged to embrace the spirit of the night. Think starlight, fair folk, shimmering fabrics, wild crowns, and whatever magic you feel like bringing with you.
-              <br><br>
-              Come ready for celebration, for adventure, and for a night beneath the stars we won’t soon forget.
-            </p>
-          </section>
-          <div class="scene">
-            <img src="images/moon_2.png" alt="" class="fairy moon_2" />
-            <img src="images/fairy_1.png" alt="" class="fairy fairy_1" />
-          </div>
-          <section class="reveal parallax">
-            <h2>Schedule</h2>
-            <ul>
-              <li>6:00 pm — Arrival & drinks</li>
-              <li>7:30 pm — Food</li>
-              <li>Late — Dancing, chaos, vibes</li>
-            </ul>
-          </section>
-          <div class="scene">
-            <img src="images/comet_1.png" alt="" class="fairy comet_1" />
-            <img src="images/cat_1.png" alt="" class="fairy cat_1" />
-          </div>
-          <section class="reveal parallax">
-            <h2>Location</h2>
-            <p>
-              Sea Swept Farm, TR19 6UQ<br>
-            </p>
-            <div class="mapouter">
-              <div class="gmap_canvas">
-                <iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Sea Swept Farm&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-              </div>
-              <style>.mapouter{position:relative;text-align:right;width:100%;height:400px;}.gmap_canvas {overflow:hidden;background:none!important;width:100%;height:400px;}.gmap_iframe {height:400px!important;}</style>
+
+          <section class="card reveal" data-reveal="fade-up">
+            <h2 class="card-title glow-text">A Celestial Midsummer Night's Dream</h2>
+            <p class="card-subtitle">A Farm Birthday Celebration at Seaswept Farm</p>
+            <div class="card-body">
+              <p>
+                As summer skies begin to glow with stars, you are warmly invited to a night of magic and moonlit celebration on the Cornish coast.
+              </p>
+              <p>
+                On <strong>Saturday 22 August 2026</strong>, we gather at <strong>Seaswept Farm</strong> near Mousehole to celebrate the milestone birthdays of <strong>Eloise</strong> and <strong>Juliette</strong> (50), and <strong>Liz</strong> (40). The farm will transform into a whimsical midsummer dream — a realm where lantern light dances like faerie fire, music drifts on enchanted breezes, and the horizon stretches into twilight's spell.
+              </p>
+              <p>
+                Camping is available from <strong>Friday 21 August</strong> through the weekend — and you're warmly welcome to tarry awhile, to wander hidden coves, follow winding coast paths, and discover the quiet magic woven through this beautiful corner of Cornwall.
+              </p>
+              <p>
+                Set within a protected National Landscape, Seaswept Farm offers sweeping sea views beneath wide Cornish skies. As dusk falls, gather around glowing fire pits for late-night reverie, surrender to music and dancing, and savour the rare enchantment that comes with a night beneath the stars.
+              </p>
+              <p><strong>Expect:</strong></p>
+              <ul class="expect-list">
+                <li>Wildflower meadows swaying in the salt-kissed air</li>
+                <li>Slumber under the watch of moon and stars</li>
+                <li>Firelit circles and twilight tales</li>
+                <li>Music rising like an incantation on the evening breeze</li>
+                <li>BBQ feasts and wandering food trucks</li>
+              </ul>
+              <p>
+                A winding footpath leads from the farm to the harbour village of Mousehole, where welcoming inns, curious shops, and timeless seaside charm await the wanderer.
+              </p>
+              <p>
+                Come ready to embrace the spirit of the night: think starlight, fair folk, shimmering fabrics, wild crowns, and whatever magic you feel like bringing. This is a celebration of friendship, nature, and midsummer wonder — a chance to pause, connect, and revel in something touched by the old magic.
+              </p>
+              <p class="sign-off">
+                We would be most delighted by your company.
+              </p>
             </div>
           </section>
-          <div class="scene">
-            <img src="images/fox_2.png" alt="" class="fairy fox_2" />
-            <img src="images/frog_1.png" alt="" class="fairy frog_1" />
-          </div>
-          <section class="reveal parallax">
-            <h2>Dress Code</h2>
-            <p>Celestial</p>
-          </section>
-          <div class="scene">
-            <img src="images/fox_4.png" alt="" class="fairy fox_4" />
-            <img src="images/ladybird_1.png" alt="" class="fairy ladybird_1" />
-          </div>
-          <section class="reveal parallax">
-            <h2>Accommodation</h2>
-            <h3>Camping</h3>
-            <p>
-              Camping is available on the farm.
-              There is one indoor shower that all camping guests will share. 
-              There will be toilets.
-            </p>
-            <h3>Hotel, B&B, and AirB&B</h3>
-            <p>
-              There are plenty of options in the local villages, however they get booked up quickly during the summer so don't wait.
-            </p>
-            <h4>Stay In Paul Village</h4>
-            <p>
-              Paul is the nearest village to the farm being roughly a 15 mnin walk. 
-            </p>
-            <h4>Stay In Mousehole</h4>
-            <p>
-              Mousehole is slightly bigger and between 15 to 30 minute walk (depending if you go by road, or brave a hidden footpath through the undergrowth).
-            </p>
-            <h4>Stay In Newlyn</h4>
-            <p>
-              You'll need to pre-book a taxi to get back to your accomodation, but there are regular buses that pick up in Newlyn and drop you at the hamlet of Sheffield (5 min walk to the farm)
-            </p>
-            <h4>Stay In Penzance</h4>
-            <p>
-              You'll need to pre-book a taxi to get back to your accomodation, but there are buses that drop you at the hamlet of Sheffield (5 min walk to the farm). 
-            </p>
-          </section>
-          <div class="scene">
-            <img src="images/bird_1.png" alt="" class="fairy bird_1" />
-            <img src="images/donkey_1.png" alt="" class="fairy donkey_1" />
-          </div>
-          <section class="reveal parallax rsvp">
-            <h2>💌 RSVP</h2>
-            <p>Please let us know if you can make it, and any dietary requirements.</p>
-            <a class="button" href="YOUR_FORM_LINK_HERE" target="_blank" rel="noreferrer">
-              RSVP Here
-            </a>
-            <p class="fine muted">RSVP by: 30 June</p>
-          </section>
-          <div class="scene">
-            <img src="images/bottle_1.png" alt="" class="fairy bottle_1" />
-            <img src="images/dog_1.png" alt="" class="fairy dog_1" />
-          </div>
-          <section class="reveal parallax">
-            <h2>FAQs</h2>
-            <p>
-              Here's some more information
-            </p>
-          </section>
-          <div class="scene">
-            <img src="images/badger_1.png" alt="" class="fairy badger_1" />
-            <img src="images/bottle_2.png" alt="" class="fairy bottle_2" />
-          </div>
-          <div class="scroll-runway" aria-hidden="true"></div>
 
+          <!-- Scene: Fairy -->
+          <div class="scene">
+            <img src="images/moon_2.png"  alt="" class="creature creature--float moon_2" />
+            <img src="images/fox_2.png"  alt="" class="creature creature--hover fairy_1" />
+          </div>
+
+          <!-- Section: Schedule -->
+          <section class="card reveal" data-reveal="fade-left">
+            <h2 class="card-title">Schedule</h2>
+            <div class="card-body">
+              <strong>Friday 21st August</strong>
+              <ul class="timeline">
+                <li class="timeline-item" data-time="3:00 pm">
+                  <span class="timeline-dot"></span>
+                  <div>
+                    <strong>Afternoon</strong>
+                    <p>Set up camp and explore the farm, local resturants and pubs</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <strong>Saturday 22nd August</strong>
+              <ul class="timeline">
+                <li class="timeline-item" data-time="12:00 pm">
+                  <span class="timeline-dot"></span>
+                  <div>
+                    <strong>Daytime</strong>
+                    <p>Explore the beautiful Cornish coastline</p>
+                  </div>
+                </li>
+                <li class="timeline-item" data-time="6:00 pm">
+                  <span class="timeline-dot"></span>
+                  <div>
+                    <strong>6pm - Party Arrival</strong>
+                    <p>Find your way to the farm as the sun begins to dip, ready for an evening of revelry.</p>
+                  </div>
+                </li>
+                <li class="timeline-item" data-time="7:30 pm">
+                  <span class="timeline-dot"></span>
+                  <div>
+                    <strong>7.30 Feast & Fire Pit</strong>
+                    <p>A midsummer banquet under the open sky</p>
+                  </div>
+                </li>
+                <li class="timeline-item" data-time="Late">
+                  <span class="timeline-dot"></span>
+                  <div>
+                    <strong>And then... let the dancing commence</strong>
+                    <p>Let the night take you where it will</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <strong>Sunday 23rd August</strong>
+              <ul class="timeline">
+                <li class="timeline-item" data-time="9:00 am">
+                  <span class="timeline-dot"></span>
+                  <div>
+                    <strong>Morning</strong>
+                    <p>Coffee and pastries in the vegetable garden</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Scene -->
+          <div class="scene">
+            <img src="images/comet_1.png" alt="" class="creature creature--drift comet_1" />
+            <img src="images/cat_1.png"   alt="" class="creature creature--hover cat_1" />
+          </div>
+
+          <!-- Section: Location -->
+          <section class="card reveal" data-reveal="fade-right">
+            <h2 class="card-title">Location</h2>
+            <div class="card-body">
+              <p class="location-name">Sea Swept Farm, TR19 6UQ</p>
+              <p class="location-sub">Near Mousehole, on the Cornish coast</p>
+              <div class="map-wrapper">
+                <iframe class="map-iframe" width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" loading="lazy" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Sea Swept Farm&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <!-- Scene -->
+          <div class="scene">
+            <img src="images/bottle_1.png" alt="" class="creature creature--drift bottle_1" />
+          </div>
+
+          <!-- Section: Dress Code -->
+          <section class="card reveal" data-reveal="scale">
+            <h2 class="card-title">Dress Code</h2>
+            <div class="card-body">
+              <p class="dress-code-word">Celestial</p>
+              <p class="dress-code-hint">Come as starlight itself. Think shimmering fabrics, wild crowns, fair folk attire, and whatever magic calls to you. Silver and gold, gossamer and velvet, moonlit silhouettes and constellation patterns. Flower crowns and antique jewellery, bare feet and dancing shawls. There are no rules, only enchantment.</p>
+            </div>
+          </section>
+
+          <!-- Scene -->
+          <div class="scene">
+            <img src="images/fox_4.png"      alt="" class="creature creature--hover fox_4" />
+          </div>
+
+          <!-- Section: Accommodation -->
+          <section class="card reveal" data-reveal="fade-up">
+            <h2 class="card-title">Accommodation</h2>
+            <div class="card-body">
+              <div class="accom-option">
+                <h3>Camping</h3>
+                <p>
+                  Camping is available on the farm.
+                  There is one indoor shower that all camping guests will share.
+                  There will be toilets.
+                </p>
+              </div>
+
+              <div class="accom-option">
+                <h3>Hotel, B&amp;B, and AirB&amp;B</h3>
+                <p>
+                  There are plenty of options in the local villages, however they get booked up quickly during the summer so don't wait.
+                </p>
+              </div>
+
+              <div class="accom-grid">
+                <div class="accom-card reveal" data-reveal="stagger">
+                  <h4>Paul Village</h4>
+                  <p>~15 min walk to the farm</p>
+                </div>
+                <div class="accom-card reveal" data-reveal="stagger">
+                  <h4>Mousehole</h4>
+                  <p>15–30 min walk (road or hidden footpath through the undergrowth)</p>
+                </div>
+                <div class="accom-card reveal" data-reveal="stagger">
+                  <h4>Newlyn</h4>
+                  <p>Pre-book a taxi, or bus to Sheffield hamlet (5 min walk)</p>
+                </div>
+                <div class="accom-card reveal" data-reveal="stagger">
+                  <h4>Penzance</h4>
+                  <p>Pre-book a taxi, or bus to Sheffield hamlet (5 min walk)</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Scene -->
+          <div class="scene">
+            <img src="images/bird_1.png"   alt="" class="creature creature--float bird_1" />
+          </div>
+
+          <!-- Scene -->
+          <div class="scene">
+            <img src="images/dog_1.png"    alt="" class="creature creature--hover dog_1" />
+          </div>
+
+          <!-- Section: FAQs -->
+          <section class="card reveal" data-reveal="fade-up">
+            <h2 class="card-title">FAQs</h2>
+            <div class="card-body">
+              <p>Here's some more information</p>
+            </div>
+          </section>
+
+          <!-- Scene -->
+          <div class="scene scene--final">
+            <img src="images/bottle_2.png" alt="" class="creature creature--drift bottle_2" />
+          </div>
+
+          <!-- Extra scroll runway for background cycling -->
+          <div class="scroll-runway" aria-hidden="true"></div>
         </div>
       </main>
     </div>
   </div>
-<script src="gate.js" defer></script>
-<script src="main.js" defer></script>
-<script src="parallax.js" defer></script>
+
+  <script src="magic.js" defer></script>
 </body>
 </html>
-
