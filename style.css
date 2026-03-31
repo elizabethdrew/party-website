@@ -626,6 +626,14 @@ body {
   font-weight: 500;
 }
 
+.card-heading {
+  font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--gold-light);
+  margin-bottom: 0.8rem;
+}
+
 /* ===== TIMELINE ===== */
 .timeline {
   list-style: none;
