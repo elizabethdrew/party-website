@@ -92,7 +92,6 @@
     });
 
     function update() {
-      const n = layers.length;
       // Clamp scroll progress to the number of transitions
       const scenePos = Math.min(scrollY / pxPerScene, NUM_TRANSITIONS);
       const transIndex = Math.min(Math.floor(scenePos), NUM_TRANSITIONS - 1);
@@ -103,35 +102,39 @@
       // Calculate fade: only fade in the last portion of each scene
       const rawT = scenePos - transIndex;
       const fadeStart = 1 - fadePortion;
-      // If we've reached the end, no more fading
       const t = (scenePos >= NUM_TRANSITIONS) ? 0 : Math.min(1, Math.max(0, (rawT - fadeStart) / fadePortion));
 
-      // Set all layers to 0, then set the active ones
-      layers.forEach(l => { if (l.el) l.el.style.opacity = '0'; });
+      // Build target opacity for each layer
+      const opacities = [0, 0, 0, 0];
 
-      if (baseLayer === nextLayer || t === 0) {
-        // Single layer visible (no crossfade needed)
-        if (layers[baseLayer].el) layers[baseLayer].el.style.opacity = '1';
+      if (scenePos >= NUM_TRANSITIONS) {
+        // Past all transitions — hold on night
+        opacities[0] = 1;
+      } else if (t === 0) {
+        // No crossfade happening — show base at full
+        opacities[baseLayer] = 1;
       } else {
-        if (layers[baseLayer].el) layers[baseLayer].el.style.opacity = String(1 - t);
-        if (layers[nextLayer].el) layers[nextLayer].el.style.opacity = String(t);
+        // Crossfading between base and next
+        opacities[baseLayer] = 1 - t;
+        opacities[nextLayer] = Math.max(opacities[nextLayer], t);
       }
 
-      // At the end, ensure night is always fully visible
-      if (scenePos >= NUM_TRANSITIONS) {
-        layers.forEach(l => { if (l.el) l.el.style.opacity = '0'; });
-        if (layers[0].el) layers[0].el.style.opacity = '1';
+      // Apply all opacities in one pass (no flicker from setting 0 first)
+      for (let i = 0; i < layers.length; i++) {
+        if (layers[i].el) layers[i].el.style.opacity = String(opacities[i]);
       }
 
       // Sun/moon face sync
-      const sunIntensity = (sunLevels[baseLayer] * (1 - t)) + (sunLevels[nextLayer] * t);
+      const activeBase = sceneSequence[transIndex];
+      const activeNext = sceneSequence[transIndex + 1];
+      const sunIntensity = (sunLevels[activeBase] * (1 - t)) + (sunLevels[activeNext] * t);
       if (moonEl && sunEl) {
         moonEl.style.opacity = '1';
         sunEl.style.opacity = String(sunIntensity);
       }
 
       // Star canvas opacity
-      const sOpacity = (starOpacity[baseLayer] * (1 - t)) + (starOpacity[nextLayer] * t);
+      const sOpacity = (starOpacity[activeBase] * (1 - t)) + (starOpacity[activeNext] * t);
       const starCanvas = document.getElementById('starCanvas');
       if (starCanvas) starCanvas.style.opacity = String(sOpacity);
     }
