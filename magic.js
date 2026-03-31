@@ -125,16 +125,21 @@
       }
 
       // Sun/moon face sync
-      const activeBase = sceneSequence[transIndex];
-      const activeNext = sceneSequence[transIndex + 1];
-      const sunIntensity = (sunLevels[activeBase] * (1 - t)) + (sunLevels[activeNext] * t);
+      let sunIntensity, sOpacity;
+      if (scenePos >= NUM_TRANSITIONS) {
+        // Holding on night — sun off, stars full
+        sunIntensity = 0;
+        sOpacity = 1;
+      } else {
+        sunIntensity = (sunLevels[baseLayer] * (1 - t)) + (sunLevels[nextLayer] * t);
+        sOpacity = (starOpacity[baseLayer] * (1 - t)) + (starOpacity[nextLayer] * t);
+      }
       if (moonEl && sunEl) {
         moonEl.style.opacity = '1';
         sunEl.style.opacity = String(sunIntensity);
       }
 
       // Star canvas opacity
-      const sOpacity = (starOpacity[activeBase] * (1 - t)) + (starOpacity[activeNext] * t);
       const starCanvas = document.getElementById('starCanvas');
       if (starCanvas) starCanvas.style.opacity = String(sOpacity);
     }
