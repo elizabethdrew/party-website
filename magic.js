@@ -83,8 +83,9 @@
     // Star opacity per scene: stars visible at night/dawn/sunset, dim during day
     const starOpacity = [1.0, 0.4, 0.05, 0.5];
 
-    // 5 scenes: night->dawn->day->sunset->night (4 transitions, then hold on night)
-    const TOTAL_SCENES = 5;
+    // The scene sequence: night(0) -> dawn(1) -> day(2) -> sunset(3) -> night(0), then hold
+    const sceneSequence = [0, 1, 2, 3, 0]; // indices into layers[]
+    const NUM_TRANSITIONS = sceneSequence.length - 1; // 4 transitions
 
     layers.forEach(l => {
       if (l.el) l.el.style.backgroundImage = `url("${l.url}")`;
@@ -92,30 +93,45 @@
 
     function update() {
       const n = layers.length;
-      // Clamp so we don't cycle past 5 full rotations
-      const scenePos = Math.min(scrollY / pxPerScene, TOTAL_SCENES);
-      const sceneIndex = Math.floor(scenePos);
-      const base = sceneIndex % n;
-      // After the last scene, stay on night (don't transition further)
-      const next = sceneIndex >= TOTAL_SCENES ? base : (sceneIndex + 1) % n;
+      // Clamp scroll progress to the number of transitions
+      const scenePos = Math.min(scrollY / pxPerScene, NUM_TRANSITIONS);
+      const transIndex = Math.min(Math.floor(scenePos), NUM_TRANSITIONS - 1);
 
-      const rawT = scenePos - sceneIndex;
+      const baseLayer = sceneSequence[transIndex];
+      const nextLayer = sceneSequence[transIndex + 1];
+
+      // Calculate fade: only fade in the last portion of each scene
+      const rawT = scenePos - transIndex;
       const fadeStart = 1 - fadePortion;
-      const t = sceneIndex >= TOTAL_SCENES ? 0 : Math.min(1, Math.max(0, (rawT - fadeStart) / fadePortion));
+      // If we've reached the end, no more fading
+      const t = (scenePos >= NUM_TRANSITIONS) ? 0 : Math.min(1, Math.max(0, (rawT - fadeStart) / fadePortion));
 
+      // Set all layers to 0, then set the active ones
       layers.forEach(l => { if (l.el) l.el.style.opacity = '0'; });
-      if (layers[base].el) layers[base].el.style.opacity = String(1 - t);
-      if (layers[next].el) layers[next].el.style.opacity = String(t);
+
+      if (baseLayer === nextLayer || t === 0) {
+        // Single layer visible (no crossfade needed)
+        if (layers[baseLayer].el) layers[baseLayer].el.style.opacity = '1';
+      } else {
+        if (layers[baseLayer].el) layers[baseLayer].el.style.opacity = String(1 - t);
+        if (layers[nextLayer].el) layers[nextLayer].el.style.opacity = String(t);
+      }
+
+      // At the end, ensure night is always fully visible
+      if (scenePos >= NUM_TRANSITIONS) {
+        layers.forEach(l => { if (l.el) l.el.style.opacity = '0'; });
+        if (layers[0].el) layers[0].el.style.opacity = '1';
+      }
 
       // Sun/moon face sync
-      const sunIntensity = (sunLevels[base] * (1 - t)) + (sunLevels[next] * t);
+      const sunIntensity = (sunLevels[baseLayer] * (1 - t)) + (sunLevels[nextLayer] * t);
       if (moonEl && sunEl) {
         moonEl.style.opacity = '1';
         sunEl.style.opacity = String(sunIntensity);
       }
 
       // Star canvas opacity
-      const sOpacity = (starOpacity[base] * (1 - t)) + (starOpacity[next] * t);
+      const sOpacity = (starOpacity[baseLayer] * (1 - t)) + (starOpacity[nextLayer] * t);
       const starCanvas = document.getElementById('starCanvas');
       if (starCanvas) starCanvas.style.opacity = String(sOpacity);
     }
